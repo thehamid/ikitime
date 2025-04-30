@@ -1,0 +1,42 @@
+.tick {
+    direction: ltr;
+    font-size: clamp(1.5rem, 2vw, 6rem);
+
+}
+
+.tick .tick-credits {
+    display: none;
+}
+
+.tick span.tick-flip:nth-child(3) {
+    min-width: 0.125em;
+    margin: 0;
+}
+
+.tick .tick-flip:nth-child(3) .tick-flip-spacer {
+    color: rgb(48, 48, 48);
+    visibility: visible;
+}
+
+.tick .tick-flip:nth-child(3) .tick-flip-card,
+.tick-flip-shadow,
+.tick-flip-card-shadow {
+    display: none;
+}
+
+
+.tick span.tick-flip:nth-child(6) {
+    min-width: 0.125em;
+    margin: 0;
+}
+
+.tick .tick-flip:nth-child(6) .tick-flip-spacer {
+    color: rgb(48, 48, 48);
+    visibility: visible;
+}
+
+.tick .tick-flip:nth-child(6) .tick-flip-card,
+.tick-flip-shadow,
+.tick-flip-card-shadow {
+    display: none;
+}

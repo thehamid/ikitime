@@ -1,0 +1,111 @@
+/* استایل‌های قبلی برای container, skeleton, error, no-media, controls-overlay, mute-control, progress-bar را نگه دارید */
+
+.media-slider-container {
+  position: relative;
+  overflow: hidden;
+  background-color: #1a1a1a;
+  color: white;
+  display: flex; /* برای حالت‌های خطا و لودینگ */
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  border-radius: 15px;
+}
+
+/* محفظه نمایش اسلاید فعال */
+.media-display-area {
+  width: 100%;
+  height: 100%;
+  position: absolute; /* برای قرارگیری روی پس‌زمینه و کنترل‌ها */
+  top: 0;
+  left: 0;
+  background-color: #e4e4e4; /* پس‌زمینه پیش‌فرض پشت مدیا */
+  display: flex; /* برای اطمینان از کشیده شدن مدیا */
+  justify-content: center;
+  align-items: center;
+}
+
+.media-display-area img,
+.media-display-area video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* یا cover */
+}
+
+/* ----- استایل اسکلتون (مثل قبل) ----- */
+.skeleton-loader {
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%; /* برای پر کردن container */
+  height: 100%;
+}
+/* ... بقیه استایل‌های اسکلتون ... */
+@keyframes skeleton-pulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+/* ----- استایل خطا و پیام (مثل قبل) ----- */
+.error-message {
+  background-color: #4d1f1f;
+  color: #ffdddd;
+  padding: 20px;
+  text-align: center;
+  width: 100%; /* برای پر کردن container */
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.no-media-message {
+  color: #aaaaaa;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* --- کنترل‌ها و پروگرس بار (مثل قبل) --- */
+.slider-controls-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 10; /* بالاتر از مدیا */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+  pointer-events: none; /* اجازه تعامل با مدیا در زیر آن */
+}
+
+.video-mute-control {
+  margin-bottom: 8px;
+  pointer-events: auto; /* دکمه قابل کلیک باشد */
+}
+
+.video-mute-control button {
+  background: none; border: none; color: white; font-size: 18px;
+  cursor: pointer; padding: 5px; opacity: 0.8; transition: opacity 0.2s ease;
+}
+.video-mute-control button:hover { opacity: 1; }
+
+.progress-bar-container {
+  width: 100%; height: 4px; background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 2px; overflow: hidden; align-self: center;
+  pointer-events: none;
+}
+
+.progress-bar-fill {
+  height: 100%; background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  /* حذف transition چون آپدیت سریع state ممکن است باعث پرش شود */
+  /* transition: width 0.1s linear; */
+}

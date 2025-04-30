@@ -1,0 +1,79 @@
+.jalali-calendar {
+    max-width: 250px; /* عرض دلخواه تقویم */
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #fff;
+    direction: rtl; /* اطمینان از راست به چپ بودن */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .jalali-calendar h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    color: #333;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 ستون مساوی */
+    gap: 5px; /* فاصله بین سلول‌ها */
+  }
+  
+  .weekday-header {
+    font-weight: bold;
+    text-align: center;
+    padding: 8px 0;
+    color: #555;
+    font-size: 0.9em;
+  }
+  
+  .day-cell {
+    border: 1px solid #eee;
+    padding: 1px 0; /* کمی پدینگ عمودی */
+    text-align: center;
+    min-height: 30px; /* حداقل ارتفاع برای زیبایی */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 0.95em;
+    cursor: default; /* یا pointer اگر قابلیت کلیک اضافه شود */
+    transition: background-color 0.2s ease;
+  }
+  
+  .day-cell:not(.empty):hover {
+      background-color: #f0f0f0; /* هاور روی روزهای معتبر */
+  }
+  
+  
+  .day-cell.empty {
+    background-color: #f9f9f9;
+    border-color: transparent; /* یا #f9f9f9 */
+    /* visibility: hidden; */ /* اگر می‌خواهید کاملا مخفی شوند */
+  }
+  
+  .day-cell.today {
+    background-color: #007bff; /* رنگ آبی برای هایلایت امروز */
+    color: white; /* رنگ متن سفید */
+    font-weight: bold;
+    border-color: #0056b3;
+  }
+  
+  /* Media query برای صفحات کوچکتر (اختیاری) */
+  @media (max-width: 400px) {
+      .jalali-calendar {
+          max-width: 95%;
+          padding: 10px;
+      }
+      .day-cell {
+          padding: 8px 0;
+          font-size: 0.9em;
+      }
+       .jalali-calendar h2 {
+          font-size: 1.2em;
+       }
+  }
