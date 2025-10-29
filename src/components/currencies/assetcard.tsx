@@ -8,6 +8,7 @@ interface AssetData {
   icon: IconType; // React Icon component
   price: string;  // Starts with '---', updated from API
   changePercent: string; // Starts with '---', updated from API
+  unit: string; // Starts with '---', updated from API
 }
 
 
@@ -32,7 +33,7 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset }) => {
 
 
   return (
-    <div className='border border-gray-300 rounded-lg shadow-md p-4 flex flex-col  justify-between w-28 h-28 sm:w-34 sm:h-34  bg-white
+    <div className='border border-gray-300 rounded-lg shadow-md p-4 flex flex-col  justify-between w-full h-full  bg-white
     transition-transform duration-200 hover:scale-105'>
       <div className='flex justify-between'>
         <h3 className="text-xs font-medium text-gray-800">{asset.name}</h3>
@@ -42,7 +43,7 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset }) => {
         <p className={`text-sm font-medium flex ${colorClass}`}>
           <Icon size={16} />%{numericValue}
         </p>
-        <p className="text-2xl font-bold text-gray-900">{asset.price.toLocaleString()}</p>
+        <p className="text-2xl font-bold text-gray-900">{Math.ceil(Number(asset.price)).toLocaleString()}<span className='text-sm text-gray-400 ml-1'>{asset.unit}</span></p>
 
       </div>
 

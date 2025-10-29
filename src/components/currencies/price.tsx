@@ -31,6 +31,7 @@ interface DisplayItem {
   icon: IconType; // React Icon component
   price: string;  // Starts with '---', updated from API
   changePercent: string; // Starts with '---', updated from API
+  unit: string; // Starts with '---', updated from API
 }
 
 // 4. API URL
@@ -39,10 +40,10 @@ const API_URL = 'https://brsapi.ir/Api/Market/Gold_Currency.php?key=FreeG4qDBDiX
 // 5. Initial Default Data with Icons and ASSUMED Symbols
 // !!! IMPORTANT: Verify these 'symbol' values against the actual API response !!!
 const initialDisplayItems: DisplayItem[] = [
-  { symbol: 'BTC', name: 'بیت کوین', icon: FaBitcoin, price: '---', changePercent: '---' },
-  { symbol: 'XAUUSD', name: 'انس طلا', icon: GiGoldBar, price: '---', changePercent: '---' },
-  { symbol: 'USD', name: 'دلار آمریکا', icon: FaDollarSign, price: '---', changePercent: '---' },
-  { symbol: 'EUR', name: 'یورو', icon: FaEuroSign, price: '---', changePercent: '---' },
+  { symbol: 'BTC', name: 'بیت کوین', icon: FaBitcoin, price: '---', changePercent: '---',unit:'$' },
+  { symbol: 'XAUUSD', name: 'اونس جهانی طلا', icon: GiGoldBar, price: '---', changePercent: '---',unit:'$' },
+  { symbol: 'USD', name: 'دلار آمریکا', icon: FaDollarSign, price: '---', changePercent: '---',unit:'IRt' },
+  { symbol: 'EUR', name: 'یورو', icon: FaEuroSign, price: '---', changePercent: '---',unit:'IRt' },
 ];
 
 // Helper function to get target symbols from initial data
@@ -151,10 +152,10 @@ const CurrencyDisplayUpdatedApi: React.FC = () => {
  
 
   return (
-    <div className='p-4'> 
-      {loading && <span>در حال بارگذاری...</span>}
+    <div className='p-1'> 
+      {loading && <span>...</span>}
       {error && <div style={{ color: 'red', marginBottom: '10px' }}>خطا: {error}</div>}
-      <div className='grid grid-cols-2 gap-2'>
+      <div className='grid grid-cols-2 gap-4'>
       
                 {displayItems.map((item,i) => (
             <AssetCard key={i} asset={item} />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CiLocationOn } from "react-icons/ci";
+import WeatherDisplayByIp from './weatherwithip';
 
 // اینترفیس برای داده‌های مورد انتظار از API OpenWeatherMap (می‌تواند کامل‌تر باشد)
 interface WeatherData {
@@ -136,7 +137,7 @@ const WeatherDisplay: React.FC = () => {
   }
 
   if (error) {
-    return <div style={{ direction: 'rtl', padding: '20px', color: 'red' }}>خطا: {error}</div>;
+    return <WeatherDisplayByIp/>;
   }
 
   if (!weatherData) {
@@ -150,7 +151,7 @@ const WeatherDisplay: React.FC = () => {
   const iconUrl = `https://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`;
 
   return (
-    <div className='bg-blue-500 text-amber-50 shadow-md rounded-lg p-4'>
+    <div className='bg-gradient-to-br from-cyan-400 to-blue-400 text-amber-50 shadow-md rounded-lg p-6'>
       <div className='flex justify-between items-center'>
         <img src={iconUrl} alt={weatherInfo.description} className='w-12 h-12' />
         <p className='text-4xl font-extrabold'>{Math.round(main.temp)}°C</p>

@@ -280,7 +280,7 @@ const MediaSlider: React.FC<MediaSliderProps> = ({
   };
 
   return (
-    <div className="media-slider-container lg:w-[400px] lg:h-[600px] w-[280px] h-[480px] ">
+    <div className="media-slider-container lg:w-[400px] lg:h-[480px] w-[280px] h-[480px] ">
       {/* محفظه نمایش مدیا */}
       <div className="media-display-area">
         {renderActiveSlide()}

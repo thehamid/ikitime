@@ -19,7 +19,6 @@
   position: absolute; /* برای قرارگیری روی پس‌زمینه و کنترل‌ها */
   top: 0;
   left: 0;
-  background-color: #e4e4e4; /* پس‌زمینه پیش‌فرض پشت مدیا */
   display: flex; /* برای اطمینان از کشیده شدن مدیا */
   justify-content: center;
   align-items: center;

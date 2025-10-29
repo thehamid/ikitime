@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import jalaali from 'jalaali-js'; // وارد کردن کتابخانه
+import jalaali from 'jalaali-js';
 
-// (اختیاری) تعریف یک اینترفیس برای وضوح بیشتر نوع داده تاریخ شمسی
+// 1. وارد کردن تابع و تایپ تم فصلی
+import { getSeasonalTheme, SeasonTheme } from '../../utils/seasonalColors';
+
+// اینترفیس و آرایه‌های ثابت شما بدون تغییر باقی می‌مانند
 interface ShamsiDate {
-  jy: number; // سال شمسی
-  jm: number; // ماه شمسی (1 تا 12)
-  jd: number; // روز شمسی (1 تا 31)
+  jy: number;
+  jm: number;
+  jd: number;
 }
 
-// نام ماه‌های شمسی
 const shamsiMonthNames: string[] = [
   "فروردین", "اردیبهشت", "خرداد",
   "تیر", "مرداد", "شهریور",
@@ -16,65 +18,59 @@ const shamsiMonthNames: string[] = [
   "دی", "بهمن", "اسفند"
 ];
 
-
-
-
-// نام روزهای هفته فارسی - اندیس با getDay() جاوااسکریپت مطابقت دارد (0 = یکشنبه)
 const persianDayNames: string[] = [
   "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه", "جمعه", "شنبه"
 ];
 
 const ShamsiDateDisplay: React.FC = () => {
-  // State برای تاریخ شمسی
+  // استیت‌های قبلی شما
   const [shamsiDate, setShamsiDate] = useState<ShamsiDate | null>(null);
-  // State برای نام روز هفته
   const [dayOfWeekName, setDayOfWeekName] = useState<string | null>(null);
-  // State برای خطا
   const [error, setError] = useState<string | null>(null);
+
+  // 2. استیت جدید برای نگهداری تم فصل
+  const [theme, setTheme] = useState<SeasonTheme | null>(null);
 
   useEffect(() => {
     try {
-      // گرفتن تاریخ و زمان میلادی امروز
       const todayGregorian = new Date();
       const gy = todayGregorian.getFullYear();
-      const gm = todayGregorian.getMonth() + 1; // ماه‌ها در جاوااسکریپت 0-پایه هستند
+      const gm = todayGregorian.getMonth() + 1;
       const gd = todayGregorian.getDate();
 
-      // 1. تبدیل تاریخ میلادی به شمسی
       const todayShamsi: ShamsiDate = jalaali.toJalaali(gy, gm, gd);
       setShamsiDate(todayShamsi);
 
-      // 2. تعیین روز هفته
-      const dayIndex = todayGregorian.getDay(); // 0 برای یکشنبه، 1 دوشنبه، ...، 6 شنبه
-      const currentDayName = persianDayNames[dayIndex]; // گرفتن نام فارسی از آرایه
+      const dayIndex = todayGregorian.getDay();
+      const currentDayName = persianDayNames[dayIndex];
       setDayOfWeekName(currentDayName);
 
-      setError(null); // پاک کردن خطا در صورت موفقیت
+      // 3. محاسبه و تنظیم تم فصل در همین useEffect
+      const currentTheme = getSeasonalTheme(todayGregorian);
+      setTheme(currentTheme);
+
+      setError(null);
 
     } catch (err) {
       console.error("خطا در محاسبه تاریخ:", err);
       setError("خطا در محاسبه تاریخ شمسی رخ داد.");
       setShamsiDate(null);
-      setDayOfWeekName(null); // پاک کردن نام روز هفته در صورت خطا
+      setDayOfWeekName(null);
+      setTheme(null); // پاک کردن تم در صورت خطا
     }
-
-    // این افکت فقط یک بار پس از اولین رندر اجرا می‌شود.
   }, []);
 
-  // نمایش حالت خطا
   if (error) {
-    return <div style={{ color: 'red', direction: 'rtl' }}>{error}</div>;
+    return <div style={{ color: 'red', direction: 'rtl', textAlign: 'center', marginTop: '20px' }}>{error}</div>;
   }
 
-  // نمایش حالت بارگذاری تا زمانی که تاریخ و روز هفته محاسبه نشده‌اند
-  if (!shamsiDate || !dayOfWeekName) {
-    return <div style={{ direction: 'rtl' }}>در حال بارگذاری تاریخ شمسی...</div>;
+  // 4. شرط بارگذاری باید تم را هم چک کند
+  if (!shamsiDate || !dayOfWeekName || !theme) {
+    return <div style={{ direction: 'rtl', textAlign: 'center', marginTop: '20px' }}>در حال بارگذاری...</div>;
   }
 
-  // فرمت‌بندی تاریخ برای نمایش
-
-// تابع تبدیل اعداد انگلیسی به فارسی
-const toPersianDigits = (num: number): string => {
+  // تابع تبدیل اعداد شما بدون تغییر
+  const toPersianDigits = (num: number): string => {
     const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
     return String(num)
       .padStart(2, '0')
@@ -83,25 +79,36 @@ const toPersianDigits = (num: number): string => {
       .join('');
   };
 
-
-
   const monthName = shamsiMonthNames[shamsiDate.jm - 1] || '';
   const yearWithMonth = `${monthName} ${toPersianDigits(shamsiDate.jy)}`;
-  const numberDay= `${toPersianDigits(shamsiDate.jd)}`;
+  const numberDay = `${toPersianDigits(shamsiDate.jd)}`;
+
+  // 5. ساخت آبجکت استایل داینامیک بر اساس تم
+  const cardStyle: React.CSSProperties = {
+    backgroundColor: theme.primary,
+    color: theme.text,
+    padding: '2rem', // معادل p-8
+    width: '100%',
+    borderRadius: '0.5rem', // معادل rounded-lg
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)', // معادل shadow-md
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    fontWeight: 'bold',
+    margin: '0.5rem', // معادل m-2
+    transition: 'background-color 0.5s ease, color 0.5s ease', // انیمیشن نرم
+    fontFamily: 'Pinar, sans-serif', // فونت فارسی زیبا
+  };
+
   return (
     <div>
-      {/* نمایش روز هفته */} 
-    
-
-        <div className='bg-gray-200 p-8 w-full rounded-lg shadow-md flex flex-col justify-evenly items-center font-bold m-2'>
-            <span >{dayOfWeekName}</span>
-            <span className='font-extrabold text-8xl p-6'>{numberDay}</span>
-            <span>{yearWithMonth}</span>
-          </div>
-
-
-
-
+      <div style={cardStyle}>
+        <span>{dayOfWeekName}</span>
+        {/* کلاس text-8xl چون مربوط به سایز است و رنگ ندارد، می‌ماند */}
+        <span className='font-extrabold text-8xl p-6'>{numberDay}</span>
+        <span>{yearWithMonth}</span>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
+import { CiLocationOn } from "react-icons/ci";
+import { WiHumidity, WiWindBeaufort0 } from 'react-icons/wi';
 // اینترفیس برای داده‌های مورد انتظار از API OpenWeatherMap (بدون تغییر)
 interface WeatherData {
   name: string;
@@ -139,25 +140,23 @@ const WeatherDisplayByIp: React.FC = () => {
   const iconUrl = `https://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`;
 
   return (
-    <div style={{
-      padding: '20px',
-      border: '1px solid #ccc',
-      borderRadius: '8px',
-      maxWidth: '300px',
-      margin: '20px auto',
-      textAlign: 'center'
-    }}>
-      {/* استفاده از نام شهر برگشتی از API آب و هوا */}
-      <h2>آب و هوای {cityName}</h2>
-       {/* نمایش نام شهر تشخیص داده شده توسط IP (اختیاری) */}
-      {detectedCity && detectedCity !== cityName && <p style={{fontSize: '0.8em', color: '#555'}}>(شناسایی اولیه بر اساس IP: {detectedCity})</p>}
-      <img src={iconUrl} alt={weatherInfo.description} style={{ width: '80px', height: '80px' }} />
-      <p style={{ fontSize: '1.8em', margin: '10px 0' }}>{Math.round(main.temp)}°C</p>
-      <p style={{ textTransform: 'capitalize' }}>{weatherInfo.description}</p>
-      <p>دمای احساسی: {Math.round(main.feels_like)}°C</p>
-      <p>رطوبت: {main.humidity}%</p>
-      <p>سرعت باد: {wind.speed} متر بر ثانیه</p>
-    </div>
+
+
+    <div className='bg-gradient-to-br from-cyan-400 to-blue-400 text-amber-50 shadow-md rounded-lg p-6 max-w-4xl w-full'>
+          <div className='flex justify-between items-center'>
+            <img src={iconUrl} alt={weatherInfo.description} className='w-12 h-12' />
+            <p className='text-4xl font-extrabold'>{Math.round(main.temp)}°C</p>
+    
+          </div>
+    
+          <div className='flex justify-between items-center'>
+            <p className='text-sm'>{weatherInfo.description}</p>
+           
+      <p className='text-sm flex gap-1'><WiHumidity/> {main.humidity}%</p>
+      <p className='text-sm flex gap-1'><WiWindBeaufort0/> {wind.speed}m/s</p>
+          </div>
+     <span className='flex items-center justify-end pt-1'>{cityName}<CiLocationOn className='mr-1' /></span>
+        </div>
   );
 };
 
