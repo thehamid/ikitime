@@ -3,7 +3,7 @@
 .media-slider-container {
   position: relative;
   overflow: hidden;
-  background-color: #1a1a1a;
+  background-color: #e5e7eb;
   color: white;
   display: flex; /* برای حالت‌های خطا و لودینگ */
   justify-content: center;
@@ -81,7 +81,6 @@
   flex-direction: column;
   align-items: flex-end;
   z-index: 10; /* بالاتر از مدیا */
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
   pointer-events: none; /* اجازه تعامل با مدیا در زیر آن */
 }
 

@@ -142,7 +142,7 @@ const WeatherDisplayByIp: React.FC = () => {
   return (
 
 
-    <div className='bg-gradient-to-br from-cyan-400 to-blue-400 text-amber-50 shadow-md rounded-lg p-6 max-w-4xl w-full'>
+    <div className='bg-gradient-to-br from-cyan-400 to-blue-400 text-amber-50 shadow-md rounded-lg p-6 max-w-4xl w-full h-full'>
           <div className='flex justify-between items-center'>
             <img src={iconUrl} alt={weatherInfo.description} className='w-12 h-12' />
             <p className='text-4xl font-extrabold'>{Math.round(main.temp)}°C</p>

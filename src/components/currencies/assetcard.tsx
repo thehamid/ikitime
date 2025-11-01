@@ -33,7 +33,7 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset }) => {
 
 
   return (
-    <div className='border border-gray-300 rounded-lg shadow-md p-4 flex flex-col  justify-between w-full h-full  bg-white
+    <div className='border border-gray-300 rounded-lg shadow-md p-4 flex flex-col  justify-between w-full h-36  bg-white
     transition-transform duration-200 hover:scale-105'>
       <div className='flex justify-between'>
         <h3 className="text-xs font-medium text-gray-800">{asset.name}</h3>

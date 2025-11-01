@@ -8,6 +8,7 @@ import CurrencyDisplay from './components/currencies/price'
 import QuoteCard from './components/quotecard/QuoteCard';
 import { MdOutlineWatchLater } from 'react-icons/md';
 import { BsTelegram } from 'react-icons/bs';
+import FalRooz from './components/faal/FalRooz';
 
 
 const API_ENDPOINT = 'https://ikitime.ir/medias/list_media.php';
@@ -114,6 +115,22 @@ const initialItems: BentoItem[] = [
   },
    {
     id: 12,
+    content: <p className="text-2xl ">ADS</p>,
+    className: "bg-gray-200 text-gray-100 p-4 rounded-lg flex items-center justify-center",
+    colSpan: 1,
+    rowSpan: 1,
+    minContentWidth: 150,
+  },
+    {
+    id: 13,
+    content: <FalRooz/>,
+    className: "",
+    colSpan: 2,
+    rowSpan: 4,
+    minContentWidth: 300,
+  },
+   {
+    id: 14,
     content: <p className="text-2xl ">ADS</p>,
     className: "bg-gray-200 text-gray-100 p-4 rounded-lg flex items-center justify-center",
     colSpan: 1,

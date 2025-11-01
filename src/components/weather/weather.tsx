@@ -151,7 +151,7 @@ const WeatherDisplay: React.FC = () => {
   const iconUrl = `https://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`;
 
   return (
-    <div className='bg-gradient-to-br from-cyan-400 to-blue-400 text-amber-50 shadow-md rounded-lg p-6'>
+    <div className='bg-gradient-to-br from-cyan-400 to-blue-400 h-full text-amber-50 shadow-md rounded-lg p-6'>
       <div className='flex justify-between items-center'>
         <img src={iconUrl} alt={weatherInfo.description} className='w-12 h-12' />
         <p className='text-4xl font-extrabold'>{Math.round(main.temp)}°C</p>
